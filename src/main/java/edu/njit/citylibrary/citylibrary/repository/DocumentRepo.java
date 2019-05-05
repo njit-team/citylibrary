@@ -74,4 +74,20 @@ public class DocumentRepo {
         );
         return documentID;
     }
+
+    public List<Document> searchDocumentByPubName(String publisherName) {
+        List<Document> documentID = jdbcTemplate.query(
+                "select Document.DocID,\n" +
+                        "       Document.Title,\n" +
+                        "       Document.PDate,\n" +
+                        "       Document.PublisherID,\n" +
+                        "       Publisher.PubName,\n" +
+                        "       Publisher.PubAddress\n" +
+                        "from Document,\n" +
+                        "     Publisher\n" +
+                        "where Publisher.PubName=? AND Document.PublisherID = Publisher.PublisherID;", new Object[]{publisherName},
+                DocumentRepo::mapRow
+        );
+        return documentID;
+    }
 }

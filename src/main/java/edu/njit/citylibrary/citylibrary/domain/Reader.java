@@ -12,7 +12,7 @@ public class Reader {
     private Date memStart;
     private Double fine;
     private int numResDocs;
-    private int numRorDocs;
+    private int numBorDocs;
 
     public Reader() {
     }
@@ -81,12 +81,12 @@ public class Reader {
         this.numResDocs = numResDocs;
     }
 
-    public int getNumRorDocs() {
-        return numRorDocs;
+    public int getNumBorDocs() {
+        return numBorDocs;
     }
 
-    public void setNumRorDocs(int numRorDocs) {
-        this.numRorDocs = numRorDocs;
+    public void setNumBorDocs(int numBorDocs) {
+        this.numBorDocs = numBorDocs;
     }
 
     @Override
@@ -100,7 +100,7 @@ public class Reader {
                 ", memStart=" + memStart +
                 ", fine=" + fine +
                 ", numResDocs=" + numResDocs +
-                ", numRorDocs=" + numRorDocs +
+                ", numBorDocs=" + numBorDocs +
                 '}';
     }
 }
