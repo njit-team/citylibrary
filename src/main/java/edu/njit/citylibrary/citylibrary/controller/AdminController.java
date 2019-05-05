@@ -3,8 +3,10 @@ package edu.njit.citylibrary.citylibrary.controller;
 import edu.njit.citylibrary.citylibrary.domain.Admin;
 import edu.njit.citylibrary.citylibrary.domain.Branch;
 import edu.njit.citylibrary.citylibrary.domain.Copy;
+import edu.njit.citylibrary.citylibrary.domain.Document;
 import edu.njit.citylibrary.citylibrary.domain.Reader;
 import edu.njit.citylibrary.citylibrary.repository.AdminRepo;
+import edu.njit.citylibrary.citylibrary.repository.DocumentRepo;
 import edu.njit.citylibrary.citylibrary.repository.ReaderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,8 @@ public class AdminController {
     AdminRepo adminRepo;
     @Autowired
     ReaderRepo readerRepo;
+    @Autowired
+    DocumentRepo documentRepo;
 
     @GetMapping(value = "/admin")
     public String admin(){
@@ -100,5 +104,19 @@ public class AdminController {
         } else {
             return "addreaderform";
         }
+    }
+
+    @GetMapping(value = "/toptenborrowedbooklist")
+    public String topTenBorrowedBookList(Model model) {
+        List<Document> topTenBorrowers = documentRepo.getTopTenBorrowedBooks();
+        model.addAttribute("books", topTenBorrowers);
+        return "books";
+    }
+
+    @GetMapping(value = "/toptenpopularbooklist")
+    public String topTenPopularBookList(Model model) {
+        List<Document> topTenBorrowers = documentRepo.getTopTenBorrowedBooks();
+        model.addAttribute("books", topTenBorrowers);
+        return "books";
     }
 }

@@ -1,7 +1,6 @@
 package edu.njit.citylibrary.citylibrary.repository;
 
 import edu.njit.citylibrary.citylibrary.domain.Document;
-import edu.njit.citylibrary.citylibrary.domain.Reader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -86,6 +85,22 @@ public class DocumentRepo {
                         "from Document,\n" +
                         "     Publisher\n" +
                         "where Publisher.PubName=? AND Document.PublisherID = Publisher.PublisherID;", new Object[]{publisherName},
+                DocumentRepo::mapRow
+        );
+        return documentID;
+    }
+
+    public List<Document> getTopTenBorrowedBooks() {
+        List<Document> documentID = jdbcTemplate.query(
+                "select Document.DocID,\n" +
+                        "       Document.Title,\n" +
+                        "       Document.PDate,\n" +
+                        "       Document.PublisherID,\n" +
+                        "       Publisher.PubName,\n" +
+                        "       Publisher.PubAddress\n" +
+                        "from Document,\n" +
+                        "     Publisher\n" +
+                        "where Document.PublisherID = Publisher.PublisherID;",
                 DocumentRepo::mapRow
         );
         return documentID;
