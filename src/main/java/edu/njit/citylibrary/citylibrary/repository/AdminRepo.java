@@ -1,6 +1,9 @@
 package edu.njit.citylibrary.citylibrary.repository;
 
 import edu.njit.citylibrary.citylibrary.domain.Admin;
+import edu.njit.citylibrary.citylibrary.domain.Branch;
+import edu.njit.citylibrary.citylibrary.domain.Copy;
+import edu.njit.citylibrary.citylibrary.domain.Reader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -28,5 +31,32 @@ public class AdminRepo {
         } else {
             return null;
         }
+    }
+
+    public List<Branch> getBranches() {
+        List<Branch> branches = jdbcTemplate.query(
+                "SELECT * FROM Branch",
+                (rs, rowNum) -> {
+                    Branch branch = new Branch();
+                    branch.setLibID(rs.getInt("LibID"));
+                    branch.setlLocation(rs.getString("LLocation"));
+                    branch.setlName(rs.getString("LName"));
+                    return branch;
+                }
+        );
+        return branches;
+    }
+
+    public int addCopy(Copy copy) {
+        int update = jdbcTemplate.update("INSERT INTO Copy (DocID, CopyNo, LibID, Position) VALUES (?, ?, ?, ?)",
+                copy.getDocId(), copy.getCopyNo(), copy.getLibId(), copy.getPosition());
+        return update;
+    }
+
+    public int addReader(Reader reader) {
+        int update = jdbcTemplate.update("INSERT INTO Reader (RType, RName, RAddress, Phone_Number, MemStart, Fine, NumResDocs, NumBorDocs) " +
+                        "VALUES (?, ?, ?, ?, ?, 0, 0, 0);",
+                reader.getrType(), reader.getrName(), reader.getrAddress(), reader.getrPhone(), reader.getMemStart());
+        return update;
     }
 }

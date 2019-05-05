@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Branch Info</title>
+</head>
+<body>
+<table>
+    <thead>
+        
+    <tr>
+            
+        <th>Lib ID</th>
+            
+        <th>Location</th>
+            
+        <th>Name</th>
+            
+    </tr>
+    </thead>
+    <tbody>
+        
+    <tr th:each="branch: ${branches}">
+                
+        <td th:text="${branch.libID}"/>
+                
+        <td th:text="${branch.lLocation}"/>
+        <td th:text="${branch.lName}"/>
+           
+    </tr>
+    </tbody>
+</table>
+<br/>
+<form action="/adminmenu" method="get">
+    <input type="submit" value="Admin Menu">
+</form>
+</body>
+</html>

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -19,25 +21,36 @@ public class ReaderRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    private static Reader mapRow(ResultSet rs, int rowNum) throws SQLException {
+        Reader reader = new Reader();
+        reader.setReaderId(rs.getInt("ReaderID"));
+        reader.setrType(rs.getString("RType"));
+        reader.setrName(rs.getString("RName"));
+        reader.setrAddress(rs.getString("RAddress"));
+        reader.setrPhone(rs.getLong("Phone_Number"));
+        reader.setMemStart(rs.getDate("MemStart").toString());
+        reader.setFine(rs.getDouble("Fine"));
+        reader.setNumResDocs(rs.getInt("NumResDocs"));
+        reader.setNumBorDocs(rs.getInt("NumBorDocs"));
+        return reader;
+    }
+
     public List<Reader> enterCardNo(int cardnumber){
         List<Reader> readerID = jdbcTemplate.query(
                 "SELECT * FROM Reader WHERE ReaderID = ?", new Object[]{cardnumber},
-                (rs, rowNum) -> {
-                    Reader reader = new Reader();
-                    reader.setReaderId(rs.getInt("ReaderID"));
-                    reader.setrType(rs.getString("RType"));
-                    reader.setrName(rs.getString("RName"));
-                    reader.setrAddress(rs.getString("RAddress"));
-                    reader.setrPhone(rs.getLong("Phone_Number"));
-                    reader.setMemStart(rs.getDate("MemStart"));
-                    reader.setFine(rs.getDouble("Fine"));
-                    reader.setNumResDocs(rs.getInt("NumResDocs"));
-                    reader.setNumBorDocs(rs.getInt("NumBorDocs"));
-                    return reader;
-                }
+                ReaderRepo::mapRow
+
         );
 
         return readerID;
+    }
+
+    public List<Reader> getTopTenBorrowers() {
+        List<Reader> readers = jdbcTemplate.query(
+                "SELECT * from Reader ORDER BY NumBorDocs DESC LIMIT 10",
+                ReaderRepo::mapRow
+        );
+        return readers;
     }
 
     public Reserves doCheckout(int readerId, int documentId, int copyNo, int libId){

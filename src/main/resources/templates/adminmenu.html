@@ -2,39 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Admin Menu</title>
 </head>
 <body>
 <form action="/adddocument" method="get">
-    Add Document: <input type="text" name="document"><br>
-    <input type="submit" value="Submit">
+    Add Document: <input type="submit" value="Submit">
 </form>
 <form action="/search" method="get">
-    Search: <input type="text" name="searchquery"><br>
+    Search: <input name="searchquery" type="text">
     <input type="submit" value="Submit">
 </form>
-<form action="/addreader" method="get">
-    Add Reader: <input type="text" name="reader"><br>
-    <input type="submit" value="Submit">
+<form action="/addreaderform" method="get">
+    Add Reader: <input type="submit" value="Submit">
 </form>
-<form action="/branchinfo" method="get">
-    Print Branch Info: <input type="text" name="branchinfo"><br>
+<form action="/branches" method="get">
+    Print Branch Info:
     <input type="submit" value="Print">
 </form>
 <form action="/borrowerlist" method="get">
-    Print Top 10 Borrowers: <input type="text" name="borrowerlist"><br>
-    <input type="submit" value="Print">
+    Print Top 10 Borrowers: <input type="submit" value="Print">
 </form>
 <form action="/borrowedbooklist" method="get">
-    Print Top 10 Borrowered books: <input type="text" name="borrowedbooklist"><br>
+    Print Top 10 Borrowered books: <input name="borrowedbooklist" type="text">
     <input type="submit" value="Print">
 </form>
 <form action="/popularbooklist" method="get">
-    Print Top 10 polular books: <input type="text" name="popularbooklist"><br>
+    Print Top 10 polular books: <input name="popularbooklist" type="text">
     <input type="submit" value="Print">
 </form>
 <form action="/fineperreader" method="get">
-    Fine per reader: <input type="text" name="fine"><br>
+    Fine per reader: <input name="fine" type="text">
     <input type="submit" value="Submit">
 </form>
 </body>

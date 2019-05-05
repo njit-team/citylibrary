@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<form action="/addcopy" method="post" th:object="${copy}">
+    Document Id: <input name="docId" type="text"><br>
+    Copy No: <input name="copyNo" type="text"><br>
+    Lib Id: <input name="libId" type="text"><br>
+    Position: <input name="position" type="text"><br>
+    <input type="submit" value="Submit">
+</form>
+
+<table>
+    <thead>
+        
+    <tr>
+            
+        <th>Lib ID</th>
+            
+        <th>Location</th>
+            
+        <th>Name</th>
+            
+    </tr>
+    </thead>
+    <tbody>
+        
+    <tr th:each="branch: ${branches}">
+                
+        <td th:text="${branch.libID}"/>
+                
+        <td th:text="${branch.lLocation}"/>
+        <td th:text="${branch.lName}"/>
+           
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

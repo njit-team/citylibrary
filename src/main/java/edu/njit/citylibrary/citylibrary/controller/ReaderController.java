@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -102,7 +101,7 @@ public class ReaderController {
     public String totalFine(Model model, HttpServletRequest request){
         Object attribute = request.getSession().getAttribute(READER_ID);
         List<Reader> readers = readerRepo.enterCardNo(Integer.valueOf(attribute.toString()));
-        model.addAttribute("reader", readers);
+        model.addAttribute("readers", readers);
         return "readerinfo";
     }
 

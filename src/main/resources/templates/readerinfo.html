@@ -12,14 +12,18 @@
             <th>Type</th>
             <th>Name</th>
             <th>Fine</th>
+        
+    <th>Borrowed Books</th>
         </tr>
     </thead>
     <tbody>
-        <tr th:each="reader: ${reader}">
+    
+<tr th:each="reader: ${readers}">
             <td th:text="${reader.readerId}" />
             <td th:text="${reader.rType}" />
             <td th:text="${reader.rName}" />
             <td th:text="${reader.fine}" />
+    <td th:text="${reader.numBorDocs}"/>
         </tr>
     </tbody>
 </table>

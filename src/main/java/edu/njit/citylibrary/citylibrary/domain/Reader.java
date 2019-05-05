@@ -9,7 +9,7 @@ public class Reader {
     private String rName;
     private String rAddress;
     private long rPhone;
-    private Date memStart;
+    private String memStart;
     private Double fine;
     private int numResDocs;
     private int numBorDocs;
@@ -57,12 +57,16 @@ public class Reader {
         this.rPhone = rPhone;
     }
 
-    public Date getMemStart() {
+    public String getMemStart() {
         return memStart;
     }
 
-    public void setMemStart(Date memStart) {
+    public void setMemStart(String memStart) {
         this.memStart = memStart;
+    }
+
+    public Date getMemStartDate() {
+        return new Date(Date.parse(memStart));
     }
 
     public Double getFine() {

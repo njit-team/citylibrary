@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Reader</title>
+</head>
+<body>
+<form action="/addreader" method="post" th:object="${reader}">
+    Type: <input name="rType" type="text"><br>
+    Name: <input name="rName" type="text"><br>
+    Address: <input name="rAddress" type="text"><br>
+    Phone: <input name="rPhone" type="text"><br>
+    Membership Start Date: <input name="memStart" type="date"><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
