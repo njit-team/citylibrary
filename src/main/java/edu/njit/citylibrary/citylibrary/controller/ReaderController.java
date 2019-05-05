@@ -124,6 +124,6 @@ public class ReaderController {
     @GetMapping(value = "/quit")
     public String quit(HttpServletRequest request){
         request.getSession().invalidate();
-        return "reader";
+        return "homepage";
     }
 }
