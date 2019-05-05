@@ -3,8 +3,8 @@ package edu.njit.citylibrary.citylibrary.controller;
 import edu.njit.citylibrary.citylibrary.domain.Admin;
 import edu.njit.citylibrary.citylibrary.domain.Branch;
 import edu.njit.citylibrary.citylibrary.domain.Copy;
-import edu.njit.citylibrary.citylibrary.domain.Document;
 import edu.njit.citylibrary.citylibrary.domain.Reader;
+import edu.njit.citylibrary.citylibrary.domain.TopTenBorrowedDocument;
 import edu.njit.citylibrary.citylibrary.repository.AdminRepo;
 import edu.njit.citylibrary.citylibrary.repository.DocumentRepo;
 import edu.njit.citylibrary.citylibrary.repository.ReaderRepo;
@@ -108,14 +108,22 @@ public class AdminController {
 
     @GetMapping(value = "/toptenborrowedbooklist")
     public String topTenBorrowedBookList(Model model) {
-        List<Document> topTenBorrowers = documentRepo.getTopTenBorrowedBooks();
+        List<TopTenBorrowedDocument> topTenBorrowers = documentRepo.getTopTenBorrowedBooks();
         model.addAttribute("books", topTenBorrowers);
-        return "books";
+        return "toptenborrowedbooks";
     }
 
     @GetMapping(value = "/toptenpopularbooklist")
     public String topTenPopularBookList(Model model) {
-        List<Document> topTenBorrowers = documentRepo.getTopTenBorrowedBooks();
+        List<TopTenBorrowedDocument> topTenBorrowers = documentRepo.getTopTenBorrowedBooks();
+        model.addAttribute("books", topTenBorrowers);
+        return "toptenborrowedbooks";
+    }
+
+    @GetMapping(value = "/avfine")
+    public String adminCalulateAverageFine(Model model) {
+        List<Reader> topTenBorrowers = readerRepo.getAllBorrowers();
+
         model.addAttribute("books", topTenBorrowers);
         return "books";
     }

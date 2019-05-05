@@ -69,8 +69,14 @@ public class ReaderController {
     }
 
     @GetMapping(value = "/checkout")
-    public String checkoutDocument(@RequestParam String checkoutquery, Model model, HttpServletRequest request){
-        return getBooks(checkoutquery, model, request);
+    public String checkoutDocument(@RequestParam String checkoutquery, Model model, HttpServletRequest request) {
+        String books = null;
+        try {
+            books = getBooks(checkoutquery, model, request);
+        } catch (Exception e) {
+            return "readermenu";
+        }
+        return "books";
     }
 
     @GetMapping(value = "/return")
@@ -83,8 +89,14 @@ public class ReaderController {
     }
 
     @GetMapping(value = "/reserve")
-    public String reserveDocument(@RequestParam String checkoutquery, Model model, HttpServletRequest request){
-        return getBooks(checkoutquery, model, request);
+    public String reserveDocument(@RequestParam String reservedocument, Model model, HttpServletRequest request) {
+        String books = null;
+        try {
+            books = getBooks(reservedocument, model, request);
+        } catch (Exception e) {
+            return "readermenu";
+        }
+        return "books";
     }
 
     private String getBooks(String checkoutquery, Model model, HttpServletRequest request) {

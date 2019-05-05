@@ -1,6 +1,7 @@
 package edu.njit.citylibrary.citylibrary.repository;
 
 import edu.njit.citylibrary.citylibrary.domain.Document;
+import edu.njit.citylibrary.citylibrary.domain.TopTenBorrowedDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -90,19 +91,16 @@ public class DocumentRepo {
         return documentID;
     }
 
-    public List<Document> getTopTenBorrowedBooks() {
-        List<Document> documentID = jdbcTemplate.query(
-                "select Document.DocID,\n" +
-                        "       Document.Title,\n" +
-                        "       Document.PDate,\n" +
-                        "       Document.PublisherID,\n" +
-                        "       Publisher.PubName,\n" +
-                        "       Publisher.PubAddress\n" +
-                        "from Document,\n" +
-                        "     Publisher\n" +
-                        "where Document.PublisherID = Publisher.PublisherID;",
-                DocumentRepo::mapRow
+    public List<TopTenBorrowedDocument> getTopTenBorrowedBooks() {
+        List<TopTenBorrowedDocument> topTenBorrowedDocumentList = jdbcTemplate.query(
+                "SELECT title, count(*) as count FROM Borrows NATURAL JOIN Document GROUP BY DocID ORDER BY COUNT(*) DESC LIMIT 10",
+                (rs, rowNum) -> {
+                    TopTenBorrowedDocument topTenBorrowedDocument = new TopTenBorrowedDocument();
+                    topTenBorrowedDocument.setCount(rs.getInt("count"));
+                    topTenBorrowedDocument.setTitle(rs.getString("title"));
+                    return topTenBorrowedDocument;
+                }
         );
-        return documentID;
+        return topTenBorrowedDocumentList;
     }
 }

@@ -53,6 +53,14 @@ public class ReaderRepo {
         return readers;
     }
 
+    public List<Reader> getAllBorrowers() {
+        List<Reader> readers = jdbcTemplate.query(
+                "SELECT * from Reader",
+                ReaderRepo::mapRow
+        );
+        return readers;
+    }
+
     public Reserves doCheckout(int readerId, int documentId, int copyNo, int libId){
 
         List<Integer> lastPrimaryKey = jdbcTemplate.query("select max(ResNumber) from Reserves",
@@ -98,6 +106,16 @@ public class ReaderRepo {
                 }
         );
         return copyID;
+    }
+
+    public double calculateAverageFine() {
+        List<Double> fineList = jdbcTemplate.query(
+                "SELECT AVG(Fine) AS Fine FROM Reader ",
+                (rs, rowNum) -> {
+                    return rs.getDouble("Fine");
+                }
+        );
+        return fineList.get(0);
     }
 
 
